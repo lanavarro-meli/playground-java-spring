@@ -4,6 +4,7 @@ import com.example.aula02.dto.VeiculoDto;
 import com.example.aula02.model.Veiculo;
 import com.example.aula02.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,29 @@ public class VeiculoService implements IVeiculoService {
     public List<VeiculoDto> getAllVeiculo() {
         List<Veiculo> listaVeiculos = repo.getAllVeiculo();
         List<VeiculoDto> listaDto= listaVeiculos.stream().map( v-> new VeiculoDto(v)).collect(Collectors.toList());
+        return listaDto;
+    }
+
+    @Override
+    public List<VeiculoDto> getAllOrderByValor() {
+        List<Veiculo> listaVeiculos = repo.getAllVeiculo();
+        List<VeiculoDto> listaDto= listaVeiculos
+                .stream()
+                .sorted((x,y) -> Double.compare(x.getValor(),y.getValor()))
+                .map( v-> new VeiculoDto(v))
+                .collect(Collectors.toList());
+        return listaDto;
+    }
+
+    @Override
+    public List<VeiculoDto> getByModelo(String modelo) {
+        List<Veiculo> listaVeiculos = repo.getAllVeiculo();
+        List<VeiculoDto> listaDto= listaVeiculos
+                .stream()
+                .filter( x -> x.getModelo().equals(modelo))
+//                .sorted((x,y) -> Double.compare(x.getValor(),y.getValor()))
+                .map(VeiculoDto:: new)
+                .collect(Collectors.toList());
         return listaDto;
     }
 
