@@ -1,5 +1,6 @@
 package com.example.aula02.controller;
 
+import com.example.aula02.dto.VeiculoDto;
 import com.example.aula02.model.Veiculo;
 import com.example.aula02.repository.VeiculoRepository;
 import com.example.aula02.service.IVeiculoService;
@@ -18,14 +19,14 @@ public class VeiculoController {
     private IVeiculoService service;
 
     @GetMapping("/{placa}")
-    public ResponseEntity<Veiculo> getVeiculo(@PathVariable String placa){
+    public ResponseEntity<VeiculoDto> getVeiculo(@PathVariable String placa){
         return  ResponseEntity.ok().body(service.getVeiculo(placa));
 
 
     }
     @GetMapping("/all")
-    public ResponseEntity<List<Veiculo>> getAllVeiculo(){
-        List<Veiculo> lista = service.getAllVeiculo();
+    public ResponseEntity<List<VeiculoDto>> getAllVeiculo(){
+        List<VeiculoDto> lista = service.getAllVeiculo();
         return ResponseEntity.ok(lista);
     }
     @PostMapping

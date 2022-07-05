@@ -13,6 +13,7 @@ public class Veiculo {
     private String placa;
     private String modelo;
     private double valor;
+    private String renavam;
 
 
 }
